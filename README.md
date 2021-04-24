@@ -1,6 +1,6 @@
 # Best Books
 
-**Author**: Louis Lassegue and Daniel Dills
+**Author**: Louis Lassegue, Daniel Dills and Michael Ryan
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
@@ -69,15 +69,15 @@ Estimate of time needed to complete: 60 minutes
 
 Start time: 11:00 AM
 
-Finish time: _____
+Finish time: 1:00 PM
 
-Actual time needed to complete: _____
+Actual time needed to complete: About 3 hrs
 
 Name of feature: Authentication: add sign in with Google Account, for authentication purposes
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 3 hrs
 
-Start time: _____
+Start time: 2:00 PM
 
 Finish time: _____
 
