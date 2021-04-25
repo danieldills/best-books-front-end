@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { withAuth0 } from '@auth0/auth0-react';
+import Card from 'react-bootstrap/Card';
 // copy from starter code from Auth0
 class Profile extends Component {
 
   render() {
     // `this.props.auth0` has all the same properties as the `useAuth0` hook
-    const { user } = this.props.auth0;
+    const { user, isAuthenticated } = this.props.auth0;
     console.log(user);
-    return (<div>Hello
-      {user.name}
-      <img src={user.picture} alt={user.name} />
-      {user.email}
+    return isAuthenticated && (
+    // <div>Hello
+    //   {user.name}
+    //   <img src={user.picture} alt={user.name} />
+    //   {user.email}
 
-    </div>
+      <Card style={{ width: '18rem' }}>
+        <Card.Img variant="top" src={user.picture} alt={user.name} />
+        <Card.Body>
+          <Card.Title>{user.name}</Card.Title>
+          <Card.Text>{user.email}</Card.Text>
+        </Card.Body>
+      </Card>
+
+    // </div>
     )
   }
 }
