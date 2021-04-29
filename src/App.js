@@ -12,7 +12,11 @@ import {
 import Login from './Login.js';
 import MyFavoriteBooks from './MyFavoriteBooks.js';
 import Profile from './Profile.js';
+import axios from 'axios';
+
 class App extends React.Component {
+
+  let getBookData = await axios.get(`${process.env.}`)
 
   render() {
     const { isAuthenticated } = this.props.auth0;
