@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
 import Carousel from 'react-bootstrap/Carousel'
-import { CarouselItem } from 'react-bootstrap';
-
 
 class BestBooks extends React.Component {
 
