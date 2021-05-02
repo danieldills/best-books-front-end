@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
-import Carousel from 'react-bootstrap/Carousel'
+import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
+import BookFormModal from './BookFormModal.js';
 
 class BestBooks extends React.Component {
 
@@ -9,8 +11,68 @@ class BestBooks extends React.Component {
     super(props);
 
     this.state = {
-      books: []
+      books: [],
+      name: '',
+      author: '',
+      description: '',
+      status: ''
     }
+  }
+
+  handleNameI = (e) => {
+    this.setState({ name: e.target.value });
+  }
+
+  handleAuthorI = (e) => {
+    this.setState({ author: e.target.value });
+  }
+
+  handleDescriptionI = (e) => {
+    this.setState({ description: e.target.value });
+  }
+
+  handleStatusI = (e) => {
+    this.setState({ status: e.target.value });
+  }
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    this.fetchUserData();
+  }
+
+  displayModal = () => {
+    this.setState ({displayModal: true});
+  }
+
+  removeModal = () => {
+    this.setState({displayModal: false});
+  }
+
+  fetchUserData = () => {
+    axios.get(`${process.env.REACT_APP_DATABASE_URL}/users/${this.state.email}`)
+      .then(serverResponse => {
+        console.log(serverResponse.data, 'working');
+        this.setState({
+          books: serverResponse.data[0].books
+        })
+      });
+  }
+ 
+  handleCreateBook = (e) => {
+    e.preventDefault();
+    console.log('name', this.handleNameI);
+    axios.post(`${process.env.REACT_APP_DATABASE_URL}/books`, {
+      email: this.props.auth0.user.email,
+      name: this.state.name,
+      author: this.state.author,
+      description: this.state.description,
+      status: this.state.status
+    }).then(response => {
+      this.setState({
+        books: response.data
+      })
+      // add a .catch
+    });
   }
 
   componentDidMount = async () => {
@@ -27,12 +89,22 @@ class BestBooks extends React.Component {
   render() {
     return (
       <>
+        <BookFormModal 
+          displayModal = {this.state.displayModal}
+          showModal = {this.displayModal}
+          hideModal = {this.removeModal}
+          addInfo = {this.handleCreateBook}
+          handleNameI = {this.handleNameI}
+          handleAuthorI = {this.handleAuthorI}
+          handleDescriptionI = {this.handleDescriptionI}
+          handleStatusI = {this.handleStatusI}
+        />
         <h1>Books</h1>
         <div>
           <Carousel>
             {this.state.books && this.state.books.map((book, i) =>
               <Carousel.Item key={book._id}>
-                <img className="d-block w-100" src="https://via.placeholder.com/150" alt='slide'/>
+                <img className="d-block w-100" src="https://via.placeholder.com/500" alt='slide' />
                 <Carousel.Caption>
                   <h3>{book.name}</h3>
                   <h6>{book.author}</h6>
