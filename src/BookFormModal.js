@@ -8,6 +8,7 @@ class BookFormModal extends React.Component {
     return (
       <>
         <Button onClick={this.props.showModal}>Add Books</Button>
+        <Button onClick={this.props.handleDelete}>Delete Books</Button>
         <Modal show={this.props.displayModal} onHide={this.props.hideModal}>
           <Form>
             <Form.Group controlId="formGroupName">

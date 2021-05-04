@@ -71,8 +71,20 @@ class BestBooks extends React.Component {
       this.setState({
         books: response.data
       })
+          // this.removeModal();
+
       // add a .catch
+      // delete button crashes back end
     });
+  }
+  
+
+  handleDelete = (id) => {
+    axios.delete(`${process.env.REACT_APP_DATABASE_URL}/books/${id}?user=${this.state.email}`).then(response => {
+      this.setState({
+        books: response.data
+      })
+    })
   }
 
   componentDidMount = async () => {
@@ -98,6 +110,7 @@ class BestBooks extends React.Component {
           handleAuthorI = {this.handleAuthorI}
           handleDescriptionI = {this.handleDescriptionI}
           handleStatusI = {this.handleStatusI}
+          handleDelete = {this.handleDelete}
         />
         <h1>Books</h1>
         <div>
