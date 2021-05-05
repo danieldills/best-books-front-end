@@ -7,8 +7,7 @@ class BookFormModal extends React.Component {
   render() {
     return (
       <>
-        <Button onClick={this.props.showModal}>Add Books</Button>
-        <Button onClick={this.props.handleDelete}>Delete Books</Button>
+        <Button onClick={this.props.showModal}>Add Book</Button>
         <Modal show={this.props.displayModal} onHide={this.props.hideModal}>
           <Form>
             <Form.Group controlId="formGroupName">
@@ -27,7 +26,6 @@ class BookFormModal extends React.Component {
               <Form.Label>Status</Form.Label>
               <Form.Control type="text" placeholder="Read or unread" onInput={this.props.handleStatusI} />
             </Form.Group>
-            <Button onClick={this.props.hideModal}>Close</Button>
             <Button onClick={this.props.addInfo}>Save Changes</Button>
           </Form>
         </Modal>
