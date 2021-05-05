@@ -41,15 +41,15 @@ class BestBooks extends React.Component {
   }
 
   displayModal = () => {
-    this.setState ({displayModal: true});
+    this.setState({ displayModal: true });
   }
 
   removeModal = () => {
-    this.setState({displayModal: false});
+    this.setState({ displayModal: false });
   }
 
   fetchUserData = () => {
-    axios.get(`${process.env.REACT_APP_DATABASE_URL}/users/${this.state.email}`)
+    axios.get(`${process.env.REACT_APP_DATABASE_URL}/users/${this.props.auth0.user.email}`)
       .then(serverResponse => {
         console.log(serverResponse.data, 'working');
         this.setState({
@@ -57,7 +57,7 @@ class BestBooks extends React.Component {
         })
       });
   }
- 
+
   handleCreateBook = (e) => {
     e.preventDefault();
     console.log('name', this.handleNameI);
@@ -71,16 +71,17 @@ class BestBooks extends React.Component {
       this.setState({
         books: response.data
       })
-          // this.removeModal();
+      this.removeModal();
 
       // add a .catch
       // delete button crashes back end
     });
   }
-  
+
 
   handleDelete = (id) => {
-    axios.delete(`${process.env.REACT_APP_DATABASE_URL}/books/${id}?user=${this.state.email}`).then(response => {
+    console.log(id);
+    axios.delete(`${process.env.REACT_APP_DATABASE_URL}/books/${id}?user=${this.props.auth0.user.email}`).then(response => {
       this.setState({
         books: response.data
       })
@@ -101,16 +102,15 @@ class BestBooks extends React.Component {
   render() {
     return (
       <>
-        <BookFormModal 
-          displayModal = {this.state.displayModal}
-          showModal = {this.displayModal}
-          hideModal = {this.removeModal}
-          addInfo = {this.handleCreateBook}
-          handleNameI = {this.handleNameI}
-          handleAuthorI = {this.handleAuthorI}
-          handleDescriptionI = {this.handleDescriptionI}
-          handleStatusI = {this.handleStatusI}
-          handleDelete = {this.handleDelete}
+        <BookFormModal
+          displayModal={this.state.displayModal}
+          showModal={this.displayModal}
+          hideModal={this.removeModal}
+          addInfo={this.handleCreateBook}
+          handleNameI={this.handleNameI}
+          handleAuthorI={this.handleAuthorI}
+          handleDescriptionI={this.handleDescriptionI}
+          handleStatusI={this.handleStatusI}
         />
         <h1>Books</h1>
         <div>
@@ -123,6 +123,7 @@ class BestBooks extends React.Component {
                   <h6>{book.author}</h6>
                   <p>{book.description}</p>
                   <p>{book.status}</p>
+                  <Button onClick = {() => this.handleDelete(book._id)}>Delete Book</Button>
                 </Carousel.Caption>
               </Carousel.Item>
             )}
