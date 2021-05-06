@@ -15,7 +15,9 @@ class BestBooks extends React.Component {
       name: '',
       author: '',
       description: '',
-      status: ''
+      status: '',
+      updateBook: '',
+      isUpdating: false
     }
   }
 
@@ -78,6 +80,18 @@ class BestBooks extends React.Component {
     });
   }
 
+  handleUpdate = (bookToUpdate) => {
+    console.log('updating book', bookToUpdate);
+    this.setState({
+      name: bookToUpdate.name,
+      author: bookToUpdate.author,
+      description: bookToUpdate.description,
+      status: bookToUpdate.status,
+      updateBook: bookToUpdate._id,
+      isUpdating: true
+    });
+  }
+
 
   handleDelete = (id) => {
     console.log(id);
@@ -124,6 +138,7 @@ class BestBooks extends React.Component {
                   <p>{book.description}</p>
                   <p>{book.status}</p>
                   <Button onClick = {() => this.handleDelete(book._id)}>Delete Book</Button>
+                  <Button onClick = {() => this.handleUpdate(book._id)}>Update Book</Button>
                 </Carousel.Caption>
               </Carousel.Item>
             )}
