@@ -12,19 +12,19 @@ class BookFormModal extends React.Component {
           <Form>
             <Form.Group controlId="formGroupName">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter book name" onInput={this.props.handleNameI} />
+              <Form.Control type="text" placeholder="Enter book name" onInput={this.props.handleNameI} value={this.props.name}/>
             </Form.Group>
             <Form.Group controlId="formGroupAuthor">
               <Form.Label>Author</Form.Label>
-              <Form.Control type="text" placeholder="Enter author" onInput={this.props.handleAuthorI} />
+              <Form.Control type="text" placeholder="Enter author" onInput={this.props.handleAuthorI} value={this.props.author}/>
             </Form.Group>
             <Form.Group controlId="formGroupDescription">
               <Form.Label>Description</Form.Label>
-              <Form.Control type="text" placeholder="Enter description" onInput={this.props.handleDescriptionI} />
+              <Form.Control type="text" placeholder="Enter description" onInput={this.props.handleDescriptionI} value={this.props.description}/>
             </Form.Group>
             <Form.Group controlId="formGroupStatus">
               <Form.Label>Status</Form.Label>
-              <Form.Control type="text" placeholder="Read or unread" onInput={this.props.handleStatusI} />
+              <Form.Control type="text" placeholder="Read or unread" onInput={this.props.handleStatusI} value={this.props.status}/>
             </Form.Group>
             <Button onClick={this.props.addInfo}>Save Changes</Button>
           </Form>

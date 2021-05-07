@@ -63,6 +63,24 @@ class BestBooks extends React.Component {
   handleCreateBook = (e) => {
     e.preventDefault();
     console.log('name', this.handleNameI);
+    if(this.state.isUpdating){
+      axios.put(`${process.env.REACT_APP_DATABASE_URL}/books/${this.state.updateBook}`,
+      {
+        name: this.state.name,
+        author: this.state.author,
+        description: this.state.description,
+        status: this.state.status  
+      }).then(response => {
+        this.setState({
+          books: response.data,
+          isUpdating: false,
+          name: '',
+          author: '',
+          description: '',
+          status: ''
+        });
+      });
+    }else{
     axios.post(`${process.env.REACT_APP_DATABASE_URL}/books`, {
       email: this.props.auth0.user.email,
       name: this.state.name,
@@ -79,6 +97,9 @@ class BestBooks extends React.Component {
       // delete button crashes back end
     });
   }
+  }
+
+
 
   handleUpdate = (bookToUpdate) => {
     console.log('updating book', bookToUpdate);
@@ -125,6 +146,10 @@ class BestBooks extends React.Component {
           handleAuthorI={this.handleAuthorI}
           handleDescriptionI={this.handleDescriptionI}
           handleStatusI={this.handleStatusI}
+          name={this.state.name}
+          author={this.state.author}
+          description={this.state.description}
+          status={this.state.status}
         />
         <h1>Books</h1>
         <div>
@@ -138,7 +163,7 @@ class BestBooks extends React.Component {
                   <p>{book.description}</p>
                   <p>{book.status}</p>
                   <Button onClick = {() => this.handleDelete(book._id)}>Delete Book</Button>
-                  <Button onClick = {() => this.handleUpdate(book._id)}>Update Book</Button>
+                  <Button onClick = {() => this.handleUpdate(book._id)}onSelect={this.displayModal}>Update Book</Button>
                 </Carousel.Caption>
               </Carousel.Item>
             )}
